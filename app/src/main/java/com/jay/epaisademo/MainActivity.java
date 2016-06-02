@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     //private MoviesAdapter mAdapter;
     private SongsAdapter adapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        setProgressBarIndeterminateVisibility(true);
 
         //mAdapter = new MoviesAdapter(movieList);
         adapter = new SongsAdapter(getApplicationContext(),songsList);
@@ -98,10 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Failed to fetch data!",Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
             }
         });
         // Add the request to the RequestQueue.
