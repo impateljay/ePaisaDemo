@@ -1,6 +1,7 @@
 package com.jay.epaisademo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 //Movie movie = movieList.get(position);
                 Song song = songsList.get(position);
                 //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), song.getTrackName() + " is selected!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), song.getTrackName() + " is selected!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),SongsDetailsActivity.class);
+                intent.putExtra("Song", song);
+                startActivity(intent);
             }
 
             @Override
@@ -88,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                         song.setTrackTimeMillis(data.getLong("trackTimeMillis"));
                         song.setPrimaryGenreName(data.getString("primaryGenreName"));
                         songsList.add(song);
-                        Toast.makeText(getApplicationContext(),song.getTrackName(),Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
