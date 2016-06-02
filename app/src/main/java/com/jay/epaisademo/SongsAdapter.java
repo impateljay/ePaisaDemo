@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.provider.LoadProvider;
 
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by JPatel on 02-06-16.
@@ -41,7 +43,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
                 .into(holder.imageView);
         holder.trackName.setText(song.getTrackName());
         holder.trackPrice.setText(String.valueOf(song.getTrackPrice()));
-        holder.trackTime.setText(String.valueOf(song.getTrackTimeMillis()));
+        //holder.trackTime.setText(String.valueOf(song.getTrackTimeMillis()/1000)+":"+String.valueOf(song.getTrackTimeMillis()%1000));
+        holder.trackTime.setText(String.valueOf(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(String.valueOf(song.getTrackTimeMillis())))+":"+TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(String.valueOf(song.getTrackTimeMillis())))%60));
     }
 
     @Override
