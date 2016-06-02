@@ -2,9 +2,8 @@ package com.jay.epaisademo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,16 +24,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private List<Movie> movieList = new ArrayList<>();
     private List<Song> songsList = new ArrayList<>();
     private RecyclerView recyclerView;
-    //private MoviesAdapter mAdapter;
     private SongsAdapter adapter;
     private ProgressBar progressBar;
 
@@ -44,51 +40,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
-
         setProgressBarIndeterminateVisibility(true);
 
-        //mAdapter = new MoviesAdapter(movieList);
-        adapter = new SongsAdapter(getApplicationContext(),songsList);
+        setTitle("Michael jackson songs");
 
+        adapter = new SongsAdapter(getApplicationContext(), songsList);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //recyclerView.setAdapter(mAdapter);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                //Movie movie = movieList.get(position);
                 Song song = songsList.get(position);
-                //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(), song.getTrackName() + " is selected!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(),SongsDetailsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SongsDetailsActivity.class);
                 intent.putExtra("Song", song);
                 startActivity(intent);
             }
 
             @Override
-            public void onLongClick(View view, int position) {}
+            public void onLongClick(View view, int position) {
+            }
         }));
 
-        //prepareMovieData();
-        // Downloading data from below url
         final String url = "https://itunes.apple.com/search?term=Michael+jackson";
 
-        // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray result = response.getJSONArray("results");
-                    for (int i=0;i<result.length();i++){
+                    for (int i = 0; i < result.length(); i++) {
                         JSONObject data = result.getJSONObject(i);
                         Song song = new Song();
                         song.setCollectionName(data.getString("collectionName"));
@@ -110,65 +98,12 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Failed to fetch data!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Failed to fetch data!", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
             }
         });
-        // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
-
-//    private void prepareMovieData() {
-//        Movie movie = new Movie("Mad Max: Fury Road", "Action & Adventure", "2015");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Inside Out", "Animation, Kids & Family", "2015");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Star Wars: Episode VII - The Force Awakens", "Action", "2015");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Shaun the Sheep", "Animation", "2015");
-//        movieList.add(movie);
-//
-//        movie = new Movie("The Martian", "Science Fiction & Fantasy", "2015");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Mission: Impossible Rogue Nation", "Action", "2015");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Up", "Animation", "2009");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Star Trek", "Science Fiction", "2009");
-//        movieList.add(movie);
-//
-//        movie = new Movie("The LEGO Movie", "Animation", "2014");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Iron Man", "Action & Adventure", "2008");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Aliens", "Science Fiction", "1986");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Chicken Run", "Animation", "2000");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Back to the Future", "Science Fiction", "1985");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Raiders of the Lost Ark", "Action & Adventure", "1981");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Goldfinger", "Action & Adventure", "1965");
-//        movieList.add(movie);
-//
-//        movie = new Movie("Guardians of the Galaxy", "Science Fiction & Fantasy", "2014");
-//        movieList.add(movie);
-//
-//        mAdapter.notifyDataSetChanged();
-//    }
 
     public interface ClickListener {
         void onClick(View view, int position);
@@ -215,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
         }
     }
 }

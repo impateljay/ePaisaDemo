@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by JPatel on 02-06-16.
  */
-public class Song implements Serializable{
+public class Song implements Serializable {
     private String collectionName;
     private String trackName;
     private String artworkUrl100;

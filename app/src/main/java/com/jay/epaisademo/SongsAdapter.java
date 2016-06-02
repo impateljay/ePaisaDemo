@@ -43,9 +43,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.MyViewHolder
                 .placeholder(R.drawable.placeholder)
                 .into(holder.imageView);
         holder.trackName.setText(song.getTrackName());
-        holder.trackPrice.setText("$"+String.valueOf(song.getTrackPrice()));
-        //holder.trackTime.setText(String.valueOf(song.getTrackTimeMillis()/1000)+":"+String.valueOf(song.getTrackTimeMillis()%1000));
-        holder.trackTime.setText("Duration "+String.valueOf(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(String.valueOf(song.getTrackTimeMillis())))+":"+TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(String.valueOf(song.getTrackTimeMillis())))%60)+" Min");
+        holder.trackPrice.setText("$" + String.valueOf(song.getTrackPrice()));
+        holder.trackTime.setText("Duration " + String.valueOf(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(String.valueOf(song.getTrackTimeMillis()))) + ":" + TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(String.valueOf(song.getTrackTimeMillis()))) % 60) + " Min");
     }
 
     @Override

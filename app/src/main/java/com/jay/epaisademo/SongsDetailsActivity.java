@@ -40,7 +40,7 @@ public class SongsDetailsActivity extends AppCompatActivity {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         try {
-            String dateTime = String.valueOf(song.getReleaseDate()).replace("Z","GMT+00:00");
+            String dateTime = String.valueOf(song.getReleaseDate()).replace("Z", "GMT+00:00");
             date = simpleDateFormat.parse(dateTime);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -50,12 +50,12 @@ public class SongsDetailsActivity extends AppCompatActivity {
                 .error(R.drawable.placeholder)
                 .placeholder(R.drawable.placeholder)
                 .into(imageView);
-        collectionName.setText("Collection Name : "+String.valueOf(song.getCollectionName()));
-        trackName.setText("Track Name : "+ String.valueOf(song.getTrackName()));
-        collectionPrice.setText("Collection Price : $"+String.valueOf(song.getCollectionPrice()));
-        trackPrice.setText("Track Price : $"+String.valueOf(song.getTrackPrice()));
-        releaseDate.setText("Release Date : "+String.valueOf(date));
-        trackTime.setText("Track Time : "+String.valueOf(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(String.valueOf(song.getTrackTimeMillis())))+":"+TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(String.valueOf(song.getTrackTimeMillis())))%60)+" Min");
-        genrneName.setText("Genre Name : "+String.valueOf(song.getPrimaryGenreName()));
+        collectionName.setText("Collection Name : " + String.valueOf(song.getCollectionName()));
+        trackName.setText("Track Name : " + String.valueOf(song.getTrackName()));
+        collectionPrice.setText("Collection Price : $" + String.valueOf(song.getCollectionPrice()));
+        trackPrice.setText("Track Price : $" + String.valueOf(song.getTrackPrice()));
+        releaseDate.setText("Release Date : " + String.valueOf(date));
+        trackTime.setText("Track Time : " + String.valueOf(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(String.valueOf(song.getTrackTimeMillis()))) + ":" + TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(String.valueOf(song.getTrackTimeMillis()))) % 60) + " Min");
+        genrneName.setText("Genre Name : " + String.valueOf(song.getPrimaryGenreName()));
     }
 }
